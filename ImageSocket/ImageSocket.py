@@ -1,4 +1,3 @@
-import _init_path
 import socket, Queue
 import base64
 import numpy as np
@@ -6,6 +5,13 @@ import cv2
 import rtp
 import work
 import logg
+
+"""
+	------	Python Plugin ( ImageSocket)	------
+	This plugin is written by SunnerLi in 2016 - 04
+	This class define the operator of ImageSocket
+	The project is follow MIT License
+"""
 
 class ImageSocket():
 	"""

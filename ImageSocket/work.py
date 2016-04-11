@@ -5,6 +5,12 @@ import rtp
 import cv2
 import logg
 
+"""
+	------	Python Plugin ( ImageSocket)	------
+	This plugin is written by SunnerLi in 2016 - 04
+	This class define the sub-socket to perform receiving image
+	The project is follow MIT License
+"""
 
 class ImageSocket_Work():
 	"""
@@ -30,7 +36,8 @@ class ImageSocket_Work():
 		"""
 			Close the tcp socket
 		"""
-		self.workSock.close()
+		if not type(self.workSock) == type(None):
+			self.workSock.close()
 
 	def recv(self, size):
 		"""
