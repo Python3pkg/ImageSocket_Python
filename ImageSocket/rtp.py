@@ -37,6 +37,20 @@ class RTP():
 		self.decode(data)
 		return self.marker
 
+	def getMarker(self):
+		"""
+			Get the marker
+			Arg:	the base64 string
+		"""
+		return self.marker
+
+	def getIndex(self):
+		"""
+			Get the image index
+			Arg:	the base64 string
+		"""
+		return self.imageIndex
+
 	def DecodeBase64(self, data):
 		"""
 			Decode the base64 string
