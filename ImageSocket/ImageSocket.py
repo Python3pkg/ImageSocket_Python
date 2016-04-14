@@ -5,6 +5,7 @@ import cv2
 import rtp
 import work
 import logg
+import threading
 
 """
 	------	Python Plugin ( ImageSocket)	------
@@ -23,9 +24,11 @@ class ImageSocket():
 	UDP = 1
 	mode = Def
 
-	sock = None					# Socket object
-	opSock = None				# Work socket object (TCP used)
-	hadSetTimeout = False		# The flag to record if set the timeout of the socket
+	sock = None							# Socket object
+	opSock = None						# Work socket object (TCP used)
+	hadSetTimeout = False				# The flag to record if set the timeout of the socket
+	semaphore = threading.Semaphore()	# The semaphore object
+	messImage = []						# The list would record each string of image
 
 	def __init__(self):
 		"""
@@ -100,8 +103,12 @@ class ImageSocket():
 			( UDP Only )
 			Recv the image string from the opposite
 			This function force to set the timeout
+
+			Notice: if there is any rtp package loss, it would return None
 		"""
 		if self.mode == self.UDP:
+			self.semaphore.acquire()
+			self.messImage = []
 			if not self.hadSetTimeout:
 				self.sock.settimeout(10)
 
@@ -111,17 +118,28 @@ class ImageSocket():
 					data, addr = self.sock.recvfrom(size)
 					logg.LOG("length: ", len(data))
 					r = rtp.RTP()
-					png += data[65:]
-					if r.decodeAndGetMarker(data[:65]) == 0:
+					#png += data[65:]
+					r.decode(data[:65])
+					breakFlag = r.getMarker()
+					index = r.getIndex()
+
+					if len(self.messImage) <= index:
+						while len(self.messImage) <= index:
+							self.messImage.append("")
+					self.messImage[index] = data[65:]
+					if breakFlag == 0:
 						break
 				except socket.timeout:
 					data = ""
 					break
 
 			# Transform image string to numpy (Through OpenCV)
-			png = base64.b64decode(png)
-			png = self.formImgArr(png)
-			png = self.oneD2Numpy(png)
+			png = self.formBase64String(self.messImage)
+			if not png == None:
+				png = base64.b64decode(png)
+				png = self.formImgArr(png)
+				png = self.oneD2Numpy(png)
+			self.semaphore.release()
 			return png
 		elif self.mode == self.TCP:
 			logg.LOG("TCP mode cannot call this function! Try ' recv() '")
@@ -135,6 +153,19 @@ class ImageSocket():
 		"""
 		for i in range(len(data)):
 			logg.LOG("arr[", i, "]: ", data[i], "\tASCII: ", ord(data[i]))
+
+	def formBase64String(self, data):
+		"""
+			Collect the list as base64 image string
+		"""
+		png = ""
+		for i in range(len(data)):
+			if data[i] != "":
+				png += data[i]
+			else:
+				logg.LOG("RTP package loss, position[", i, "]")
+				return None
+		return png
 
 	def formImgArr(self, data):
 		"""
