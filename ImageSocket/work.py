@@ -52,7 +52,7 @@ class ImageSocket_Work():
 		while True:
 			try:
 				data = self.workSock.recv(2000000)
-				logg.LOG("length: ", len(data))
+				logg.LOGI("length: ", len(data))
 				roughPng += data
 				if len(data) < 66:
 					break

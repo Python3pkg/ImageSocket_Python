@@ -25,6 +25,6 @@ def LOG(string):
 	if needShowLog:
 		print "--< ImageSocket >--   :", string
 
-def LOG(string, intt):
+def LOGI(string, intt):
 	if needShowLog:
 		print "--< ImageSocket >--   :", string, intt

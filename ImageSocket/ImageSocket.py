@@ -116,7 +116,7 @@ class ImageSocket():
 			while True:
 				try:
 					data, addr = self.sock.recvfrom(size)
-					logg.LOG("length: ", len(data))
+					logg.LOGI("length: ", len(data))
 					r = rtp.RTP()
 					#png += data[65:]
 					r.decode(data[:65])
@@ -152,7 +152,7 @@ class ImageSocket():
 			This function just used to debug
 		"""
 		for i in range(len(data)):
-			logg.LOG("arr[", i, "]: ", data[i], "\tASCII: ", ord(data[i]))
+			print "arr[", i, "]: ", data[i], "\tASCII: ", ord(data[i])
 
 	def formBase64String(self, data):
 		"""
@@ -163,7 +163,7 @@ class ImageSocket():
 			if data[i] != "":
 				png += data[i]
 			else:
-				logg.LOG("RTP package loss, position[", i, "]")
+				logg.LOGI("RTP package loss, position:", i)
 				return None
 		return png
 
