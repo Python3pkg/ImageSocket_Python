@@ -1,6 +1,8 @@
 # ImageSocket_Python
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?maxAge=2592000)]()
 [![Packagist](https://img.shields.io/badge/Develope-0.0.1-brightgreen.svg)]()</br>   
+![Packagist](https://github.com/SunnerLi/ImageSocket/blob/master/Image/logo.jpeg)</br>   
+
 The python plugin to receive the image socket
 
 Abstract
@@ -43,7 +45,7 @@ The following is the environment of development. Don't garentee it would work no
 
 The command to install:
 ```
-sudo pip install "https://github.com/sunnerli/ImageSocket_Python/tarball/0.0.1"
+sudo pip install "https://github.com/sunnerli/ImageSocket_Python/tarball/0.0.2"
 ```    
 The end number above is the version of this plugin.
 The edition number of this project would show at the top. (green small image)
