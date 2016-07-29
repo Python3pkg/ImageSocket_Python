@@ -6,6 +6,7 @@ import rtp
 import work
 import logg
 import threading
+from bluetooth import *
 
 """
 	------	Python Plugin ( ImageSocket)	------
@@ -22,8 +23,9 @@ class ImageSocket():
 	Def = -1
 	TCP = 0
 	UDP = 1
-	mode = Def
-
+	BT = 2
+	
+	mode = Def  
 	sock = None							# Socket object
 	opSock = None						# Work socket object (TCP used)
 	hadSetTimeout = False				# The flag to record if set the timeout of the socket
@@ -36,16 +38,21 @@ class ImageSocket():
 		"""
 		pass
 
-	def socket(self, family, socketType):
+	def socket(self, family, socketType=None):
 		"""
 			Construct the UDP socket
 		"""
-		self.sock = socket.socket(family,socketType)
 		if socketType == socket.SOCK_DGRAM:
+			self.sock = socket.socket(family,socketType)
 			self.mode = self.UDP
 		elif socketType == socket.SOCK_STREAM:
+			self.sock = socket.socket(family,socketType)
 			self.mode = self.TCP
-			self.opSock = work.ImageSocket_Work()
+			self.opSock = work.ImageSocket_Work(self.TCP)
+		elif socketType == None and family == RFCOMM:
+			self.sock = BluetoothSocket( RFCOMM )
+			self.mode = self.BT
+			self.opSock = work.ImageSocket_Work(self.BT)
 		else:
 			logg.LOG("This plugin didn't support other type of socket.")
 
@@ -70,10 +77,25 @@ class ImageSocket():
 		"""
 		if self.mode == self.TCP:
 			self.sock.listen(times)
+		elif self.mode == self.BT:
+			self.sock.listen(times)
+			uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
+			advertise_service( self.sock, "SampleServer",
+				service_id = uuid,
+				service_classes = [ uuid, SERIAL_PORT_CLASS ],
+				profiles = [ SERIAL_PORT_PROFILE ], 
+				#protocols = [ OBEX_UUID ] 
+			)
 		elif self.mode == self.UDP:
 			logg.LOG("UDP mode cannot call this function. Try to remove this call.")
 		else:
 			logg.LOG("Invalid mode cannot call this function.")
+		
+	def getsockname(self):
+		"""
+			Return the socket name
+		"""
+		return self.sock.getsockname()
 
 	def settimeout(self, _time=10):
 		"""
@@ -87,7 +109,7 @@ class ImageSocket():
 			Accept the tcp connect request
 			This function force to set timeout
 		"""
-		if self.mode == self.TCP:
+		if self.mode == self.TCP or self.mode == self.BT:
 			if not self.hadSetTimeout:
 				self.settimeout(10)
 			opSock, address = self.sock.accept()
@@ -103,7 +125,6 @@ class ImageSocket():
 			( UDP Only )
 			Recv the image string from the opposite
 			This function force to set the timeout
-
 			Notice: if there is any rtp package loss, it would return None
 		"""
 		if self.mode == self.UDP:
@@ -190,4 +211,4 @@ class ImageSocket():
 		"""
 		self.sock.close()
 		if self.mode == self.TCP:
-			self.opSock.close()
+			self.opSock.close()	
