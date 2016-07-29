@@ -1,7 +1,7 @@
 import socket
 import base64
 import numpy as np
-#import rtp
+import rtp
 import cv2
 import logg
 from bluetooth import *
@@ -17,12 +17,12 @@ class ImageSocket_Work():
     """
         This class define the working socket contain and method
     """
-    workSock = None			# The working socket object
-    workType = None
+    workSock = None				# The working socket object
+    workType = None				# The working type( TCP or BT ?)
     hadSetTimeout = False		# The flag to record if set the timeout of the socket
     
-    TCP = 0
-    BT = 2
+    TCP = 0						# Constant of type
+    BT = 2						# Constant of type
 
     def __init__(self, _type):
     	"""
@@ -83,11 +83,13 @@ class ImageSocket_Work():
         png = png[:len(png)-headerLength]
     	copy = png
     	png = ""    
+		
     	# Get the 1st header to show speed
     	header = copy[:headerLength]
     	#r = rtp.RTP()
     	#r.decode(header)   
     	# Drop the rest
+		
         if self.workType == self.TCP:
     	    while len(copy) > 0:
     	    	piece = copy[headerLength:1445]

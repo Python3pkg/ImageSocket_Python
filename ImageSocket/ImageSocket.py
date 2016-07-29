@@ -72,7 +72,7 @@ class ImageSocket():
 
 	def listen(self, times):
 		"""
-			( TCP Only )
+			( TCP and Bluetooth Only )
 			Set the number of max listen request for one time
 		"""
 		if self.mode == self.TCP:
@@ -105,7 +105,7 @@ class ImageSocket():
 
 	def accept(self):
 		"""
-			( TCP Only )
+			( TCP and Bluetooth Only )
 			Accept the tcp connect request
 			This function force to set timeout
 		"""

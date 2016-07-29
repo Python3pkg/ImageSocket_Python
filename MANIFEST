@@ -5,4 +5,7 @@ ImageSocket/ImageSocket.py
 ImageSocket/__init__.py
 ImageSocket/logg.py
 ImageSocket/rtp.py
+ImageSocket/test__bt.py
+ImageSocket/test_tcp.py
+ImageSocket/test_udp.py
 ImageSocket/work.py
