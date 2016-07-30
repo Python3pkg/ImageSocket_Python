@@ -1,10 +1,17 @@
 # ImageSocket_Python
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?maxAge=2592000)]()
-[![Packagist](https://img.shields.io/badge/Stable-0.0.2-brightgreen.svg)]()</br>   
-![Packagist](https://github.com/SunnerLi/ImageSocket/blob/master/Image/logo.jpeg)</br>   
-
+[![Packagist](https://img.shields.io/badge/Develope-1.0.0-brightgreen.svg)]()</br>   
+    
 The python plugin to receive the image socket
-
+    
+       
+    
+<p align="center">
+  <img src="https://github.com/SunnerLi/ImageSocket/blob/master/Image/logo.jpeg"/>
+</p> 
+    
+       
+    
 Abstract
 ---------------------
 This project provide a new class ImageSocket. As the usual, you can easily receive the string. But It's not easy to receive the image with a few code. On the linux platform, GNU provide TCP & UDP two WiFi method to pass information. This project build a basic API that the developer can receive the image in a easy way!    
@@ -35,6 +42,15 @@ UDP:
    sock.bind (("", port))
    img = sock.recvfrom(2000000)
 ```    
+Bluetooth:
+```python
+   sock = ImageSocket.ImageSocket()
+   sock.socket(RFCOMM)
+   sock.bind(("",PORT_ANY))
+   sock.listen(1)
+   client_sock, client_info = sock.accept()
+   img = client_sock.recv(2000000)
+```    
 
 Get Start
 ---------------------
@@ -42,10 +58,15 @@ The following is the environment of development. Don't garentee it would work no
 * OpenCV 2.4.0+
 * Numpy 1.10.4+
 * Python 2.7  
-
+* pybluez if you want to use bluetooth transfer    
+    
 The command to install:
 ```
-sudo pip install "https://github.com/sunnerli/ImageSocket_Python/tarball/0.0.2"
+sudo pip install "https://github.com/sunnerli/ImageSocket_Python/tarball/1.0.0"
+```    
+or    
+```
+sudo pip install ImageSocket --update
 ```    
 The end number above is the version of this plugin.
 The edition number of this project would show at the top. (green small image)
