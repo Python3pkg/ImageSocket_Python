@@ -14,8 +14,17 @@ The python plugin to receive the image socket
     
 Abstract
 ---------------------
-This project provide a new class ImageSocket. As the usual, you can easily receive the string. But It's not easy to receive the image with a few code. On the linux platform, GNU provide TCP & UDP two WiFi method to pass information. This project build a basic API that the developer can receive the image in a easy way!    
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This project provide a new class `ImageSocket`. As the usual, you can easily transfer the string.
+But It's not easy to transfer the image with a few code. On the Android platform, Google provide 
+TCP & UDP two WiFi method to pass information. One the other hand, the python platform provide 
+socket pachage to receive the infomation. This project build a basic API that the developer can 
+transfer the image in a easy way!    
+    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This project provide Internet( TCP & UDP ) and bluetooth methodology to reach the goal.    
+    
+    
+    
+     
 Motivation
 ---------------------
 It's wild to use RTP to transfer the video streaming. There's some situation that the phone would transfer the image to PC. The computation of phone is weaker than the PC. This project use this property to receive the image and reassemble.    
