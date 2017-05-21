@@ -66,7 +66,7 @@ class RTP():
 			Print the result of decoding
 		"""
 		if self.version == -1:
-			print "Haven't call decodeArr"
+			print("Haven't call decodeArr")
 		else:
 			"""
 			print "Version: ", self.version
@@ -89,14 +89,14 @@ class RTP():
 			Print the string bit by bit including the ASCII order
 		"""
 		for i in range(len(headerString)):
-			print "arr[", i, "]: ", headerString[i], "\tcode: ", ord(headerString[i])
+			print("arr[", i, "]: ", headerString[i], "\tcode: ", ord(headerString[i]))
 
 	def decodeArr(self, data):
 		"""
 			Decode each flag of RTP header
 		"""
 		if not len(data) == 48:
-			print "The header is invalid"
+			print("The header is invalid")
 		else:
 			# Change to int list
 			res = []

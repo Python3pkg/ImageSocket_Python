@@ -23,8 +23,8 @@ def hideLog(status):
 
 def LOG(string):
 	if needShowLog:
-		print "--< ImageSocket >--   :", string
+		print("--< ImageSocket >--   :", string)
 
 def LOGI(string, intt):
 	if needShowLog:
-		print "--< ImageSocket >--   :", string, intt
+		print("--< ImageSocket >--   :", string, intt)

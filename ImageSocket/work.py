@@ -1,9 +1,9 @@
 import socket
 import base64
 import numpy as np
-import rtp
+from . import rtp
 import cv2
-import logg
+from . import logg
 from bluetooth import *
 
 """
@@ -98,7 +98,7 @@ class ImageSocket_Work():
         elif self.workType == self.BT:
             while len(copy) > 0:
     	    	piece = copy[headerLength:60045]
-                print "picture piece length: ", len(piece)
+                print("picture piece length: ", len(piece))
     	    	png += piece
     	    	copy = copy[60045:]
     	return png

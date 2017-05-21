@@ -1,5 +1,5 @@
 from bluetooth import *
-import ImageSocket
+from . import ImageSocket
 import cv2
 import base64
 
@@ -9,10 +9,10 @@ server_sock.settimeout()
 server_sock.bind(("",PORT_ANY))
 server_sock.listen(1)
 port = server_sock.getsockname()[1]
-print("Waiting for connection on RFCOMM channel %d" % port)
+print(("Waiting for connection on RFCOMM channel %d" % port))
 
 client_sock, client_info = server_sock.accept()
-print("Accepted connection from ", client_info)
+print(("Accepted connection from ", client_info))
 img = client_sock.recv(2000000)
 
 # Show result and release resource

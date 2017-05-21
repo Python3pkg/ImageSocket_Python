@@ -1,4 +1,4 @@
-import ImageSocket
+from . import ImageSocket
 import socket
 import cv2
 
@@ -10,7 +10,7 @@ sock = ImageSocket.ImageSocket()
 sock.socket(socket.AF_INET,socket.SOCK_DGRAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 sock.bind (("", port))
-print "Wait for the image..."
+print("Wait for the image...")
 img = sock.recvfrom(2000000)
 
 # Show result and release resource

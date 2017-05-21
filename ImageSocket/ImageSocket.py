@@ -1,10 +1,10 @@
-import socket, Queue
+import socket, queue
 import base64
 import numpy as np
 import cv2
-import rtp
-import work
-import logg
+from . import rtp
+from . import work
+from . import logg
 import threading
 from bluetooth import *
 
@@ -173,7 +173,7 @@ class ImageSocket():
 			This function just used to debug
 		"""
 		for i in range(len(data)):
-			print "arr[", i, "]: ", data[i], "\tASCII: ", ord(data[i])
+			print("arr[", i, "]: ", data[i], "\tASCII: ", ord(data[i]))
 
 	def formBase64String(self, data):
 		"""

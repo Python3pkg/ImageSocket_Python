@@ -1,4 +1,4 @@
-import ImageSocket
+from . import ImageSocket
 import socket
 import cv2
 

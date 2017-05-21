@@ -17,7 +17,7 @@ def add_path(path):
 
 this = os.path.dirname(__file__)
 __all__ = ["logg", "rtp", "work", "ImageSocket"];
-print "?"
+print("?")
 # Add log module to the PYTHONPATH
 #log_path = os.path.join(this, '..', 'LOG')
 #add_path(log_path)
